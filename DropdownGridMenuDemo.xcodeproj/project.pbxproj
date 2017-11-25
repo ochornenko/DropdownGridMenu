@@ -14,10 +14,10 @@
 		7C41FD251FC93CAC00DFEBE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C41FD231FC93CAC00DFEBE0 /* LaunchScreen.storyboard */; };
 		7C41FD301FC93CAC00DFEBE0 /* DropdownGridMenuDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41FD2F1FC93CAC00DFEBE0 /* DropdownGridMenuDemoTests.swift */; };
 		7C41FD3B1FC93CAC00DFEBE0 /* DropdownGridMenuDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41FD3A1FC93CAC00DFEBE0 /* DropdownGridMenuDemoUITests.swift */; };
-		7C41FD4F1FC93FDA00DFEBE0 /* DropdownGridMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41FD4B1FC93FDA00DFEBE0 /* DropdownGridMenuCell.swift */; };
-		7C41FD501FC93FDA00DFEBE0 /* DropdownGridMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41FD4C1FC93FDA00DFEBE0 /* DropdownGridMenuItem.swift */; };
-		7C41FD511FC93FDA00DFEBE0 /* DropdownGridMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41FD4D1FC93FDA00DFEBE0 /* DropdownGridMenuTransitionController.swift */; };
-		7C41FD521FC93FDA00DFEBE0 /* DropdownGridMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C41FD4E1FC93FDA00DFEBE0 /* DropdownGridMenuController.swift */; };
+		7C67BB6B1FCA36B000D86DA8 /* DropdownGridMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB671FCA36B000D86DA8 /* DropdownGridMenuCell.swift */; };
+		7C67BB6C1FCA36B000D86DA8 /* DropdownGridMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB681FCA36B000D86DA8 /* DropdownGridMenuItem.swift */; };
+		7C67BB6D1FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB691FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift */; };
+		7C67BB6E1FCA36B000D86DA8 /* DropdownGridMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB6A1FCA36B000D86DA8 /* DropdownGridMenuController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +51,10 @@
 		7C41FD361FC93CAC00DFEBE0 /* DropdownGridMenuDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DropdownGridMenuDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C41FD3A1FC93CAC00DFEBE0 /* DropdownGridMenuDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownGridMenuDemoUITests.swift; sourceTree = "<group>"; };
 		7C41FD3C1FC93CAC00DFEBE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C41FD4B1FC93FDA00DFEBE0 /* DropdownGridMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuCell.swift; path = DropdownGridMenu/DropdownGridMenuCell.swift; sourceTree = SOURCE_ROOT; };
-		7C41FD4C1FC93FDA00DFEBE0 /* DropdownGridMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuItem.swift; path = DropdownGridMenu/DropdownGridMenuItem.swift; sourceTree = SOURCE_ROOT; };
-		7C41FD4D1FC93FDA00DFEBE0 /* DropdownGridMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuTransitionController.swift; path = DropdownGridMenu/DropdownGridMenuTransitionController.swift; sourceTree = SOURCE_ROOT; };
-		7C41FD4E1FC93FDA00DFEBE0 /* DropdownGridMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuController.swift; path = DropdownGridMenu/DropdownGridMenuController.swift; sourceTree = SOURCE_ROOT; };
+		7C67BB671FCA36B000D86DA8 /* DropdownGridMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuCell.swift; path = DropdownGridMenu/DropdownGridMenuCell.swift; sourceTree = SOURCE_ROOT; };
+		7C67BB681FCA36B000D86DA8 /* DropdownGridMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuItem.swift; path = DropdownGridMenu/DropdownGridMenuItem.swift; sourceTree = SOURCE_ROOT; };
+		7C67BB691FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuTransitionController.swift; path = DropdownGridMenu/DropdownGridMenuTransitionController.swift; sourceTree = SOURCE_ROOT; };
+		7C67BB6A1FCA36B000D86DA8 /* DropdownGridMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuController.swift; path = DropdownGridMenu/DropdownGridMenuController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 		7C41FD0E1FC93CAC00DFEBE0 = {
 			isa = PBXGroup;
 			children = (
-				7C41FD4A1FC93FC400DFEBE0 /* DropdownGridMenu */,
+				7C67BB661FCA364500D86DA8 /* DropdownGridMenu */,
 				7C41FD191FC93CAC00DFEBE0 /* DropdownGridMenuDemo */,
 				7C41FD2E1FC93CAC00DFEBE0 /* DropdownGridMenuDemoTests */,
 				7C41FD391FC93CAC00DFEBE0 /* DropdownGridMenuDemoUITests */,
@@ -134,13 +134,13 @@
 			path = DropdownGridMenuDemoUITests;
 			sourceTree = "<group>";
 		};
-		7C41FD4A1FC93FC400DFEBE0 /* DropdownGridMenu */ = {
+		7C67BB661FCA364500D86DA8 /* DropdownGridMenu */ = {
 			isa = PBXGroup;
 			children = (
-				7C41FD4B1FC93FDA00DFEBE0 /* DropdownGridMenuCell.swift */,
-				7C41FD4E1FC93FDA00DFEBE0 /* DropdownGridMenuController.swift */,
-				7C41FD4C1FC93FDA00DFEBE0 /* DropdownGridMenuItem.swift */,
-				7C41FD4D1FC93FDA00DFEBE0 /* DropdownGridMenuTransitionController.swift */,
+				7C67BB671FCA36B000D86DA8 /* DropdownGridMenuCell.swift */,
+				7C67BB6A1FCA36B000D86DA8 /* DropdownGridMenuController.swift */,
+				7C67BB681FCA36B000D86DA8 /* DropdownGridMenuItem.swift */,
+				7C67BB691FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift */,
 			);
 			name = DropdownGridMenu;
 			path = "New Group";
@@ -280,12 +280,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C41FD501FC93FDA00DFEBE0 /* DropdownGridMenuItem.swift in Sources */,
-				7C41FD4F1FC93FDA00DFEBE0 /* DropdownGridMenuCell.swift in Sources */,
+				7C67BB6C1FCA36B000D86DA8 /* DropdownGridMenuItem.swift in Sources */,
+				7C67BB6B1FCA36B000D86DA8 /* DropdownGridMenuCell.swift in Sources */,
 				7C41FD1D1FC93CAC00DFEBE0 /* ViewController.swift in Sources */,
 				7C41FD1B1FC93CAC00DFEBE0 /* AppDelegate.swift in Sources */,
-				7C41FD521FC93FDA00DFEBE0 /* DropdownGridMenuController.swift in Sources */,
-				7C41FD511FC93FDA00DFEBE0 /* DropdownGridMenuTransitionController.swift in Sources */,
+				7C67BB6E1FCA36B000D86DA8 /* DropdownGridMenuController.swift in Sources */,
+				7C67BB6D1FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
