@@ -53,6 +53,8 @@ class DropdownGridMenuController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.alwaysBounceVertical = true
         self.collectionView.clipsToBounds = true
+        self.collectionView.showsHorizontalScrollIndicator = false
+        self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.register(DropdownGridMenuCell.self, forCellWithReuseIdentifier: DropdownGridMenuController.cell)
         self.collectionView.backgroundColor = UIColor.clear
         self.collectionView.isHidden = true
@@ -67,6 +69,11 @@ class DropdownGridMenuController: UIViewController {
         self.collectionView.addGestureRecognizer(swipeRight)
         
         activateConstraints(true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.collectionView.collectionViewLayout.invalidateLayout()
     }
     
     func activateConstraints(_ active: Bool) {
