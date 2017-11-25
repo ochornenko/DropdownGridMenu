@@ -27,7 +27,6 @@ class DropdownGridMenuController: UIViewController {
     private var collectionView: UICollectionView!
     private var backgroundView: UIView!
     private var isPopover = false
-    private var isLayoutDone = false
     private var appear = DropdownGridMenuAppear.fromTop
     private var dismiss = DropdownGridMenuDismiss.toBottom
     private var items = [DropdownGridMenuItem]()
@@ -43,13 +42,13 @@ class DropdownGridMenuController: UIViewController {
         self.view.backgroundColor = UIColor.clear
         
         self.backgroundView = UIView(frame: self.view.frame)
-        self.backgroundView.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
+        self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundView.backgroundColor = UIColor(white: 1.0, alpha: 0.9)
         self.backgroundView.alpha = 0
         self.view.insertSubview(self.backgroundView, at: 0)
         
         self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewFlowLayout())
-        self.collectionView.autoresizingMask = UIViewAutoresizing.init(rawValue: 0)
+        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.alwaysBounceVertical = true
@@ -66,45 +65,18 @@ class DropdownGridMenuController: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeRight.direction = .right
         self.collectionView.addGestureRecognizer(swipeRight)
+        
+        activateConstraints(true)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    func activateConstraints(_ active: Bool) {
+        self.backgroundView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = active
+        self.backgroundView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = active
         
-        if self.isPopover && !self.isLayoutDone {
-            self.isLayoutDone = true
-            if self.preferredContentSize.width >= self.view.frame.size.width {
-                let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: self.view.frame.width, height: self.preferredContentSize.height))
-                self.updateContentFrame(frame)
-            }
-        }
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        var frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
-        
-        if self.isPopover {
-            var width = self.preferredContentSize.width
-            if width >= size.width {
-                let horizontalMargins = (self.popoverPresentationController?.popoverLayoutMargins.left)! + (self.popoverPresentationController?.popoverLayoutMargins.right)!
-                width = size.width - horizontalMargins
-            }
-            frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: self.preferredContentSize.height))
-        }
-        self.updateContentFrame(frame)
-        
-        guard let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        
-        flowLayout.invalidateLayout()
+        self.collectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = active
+        self.collectionView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = active
     }
     
-    func updateContentFrame(_ frame: CGRect) {
-        self.backgroundView.frame = frame
-        self.collectionView.frame = frame
-    }
-
     func transformItemAtIndex(_ index: Int, negative: Bool) -> CGAffineTransform {
         let maxTranslation = self.view.frame.width / 2
         let minTranslation = self.view.frame.width / 3
@@ -205,7 +177,8 @@ class DropdownGridMenuController: UIViewController {
     @objc func pressButton(_ button: UIButton) {
         let item = self.items[button.tag]
         item.isSelected = !item.isSelected
-        self.collectionView.reloadData()
+        let cell = self.collectionView.cellForItem(at: IndexPath(row: button.tag, section: 0))
+        cell?.isSelected = item.isSelected
         
         self.action?(item)
     }
@@ -286,12 +259,7 @@ extension DropdownGridMenuController: UICollectionViewDataSource {
         cell.button.setImage(item.image, for: .normal)
         cell.button.setImage(item.image.tint(color: UIColor(white: 0.5, alpha: 0.5)), for: .selected)
         cell.button.addTarget(self, action: #selector(pressButton(_:)), for: .touchUpInside)
-        
-        if item.isSelected {
-            cell.isSelected = true
-        } else {
-            cell.isSelected = false
-        }
+        cell.isSelected = item.isSelected
         
         return cell
     }
@@ -346,9 +314,6 @@ extension DropdownGridMenuController: UIViewControllerTransitioningDelegate {
 
 extension DropdownGridMenuController: UIPopoverPresentationControllerDelegate {
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: self.preferredContentSize)
-        self.updateContentFrame(frame)
-        
         OperationQueue.main.addOperation({
             self.enterTheStage()
         })
