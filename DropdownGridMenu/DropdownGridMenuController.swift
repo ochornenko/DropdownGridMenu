@@ -166,15 +166,6 @@ class DropdownGridMenuController: UIViewController {
         }
     }
     
-    @objc func pressButton(_ button: UIButton) {
-        let item = self.items[button.tag]
-        item.isSelected = !item.isSelected
-        let cell = self.collectionView.cellForItem(at: IndexPath(row: button.tag, section: 0))
-        cell?.isSelected = item.isSelected
-        
-        self.action?(item)
-    }
-    
     @objc func dismissMenu(sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: {
             self.completion?()
@@ -246,14 +237,23 @@ extension DropdownGridMenuController: UICollectionViewDataSource {
         } else if item.attributedText.length > 0 {
             cell.textLabel.attributedText = item.attributedText
         }
-        
-        cell.button.tag = indexPath.row
-        cell.button.setImage(item.image, for: .normal)
-        cell.button.setImage(item.image.tint(color: UIColor(white: 0.5, alpha: 0.5)), for: .selected)
-        cell.button.addTarget(self, action: #selector(pressButton(_:)), for: .touchUpInside)
-        cell.isSelected = item.isSelected
+
+        cell.toggleSelection(item: item)
         
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension DropdownGridMenuController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as!  DropdownGridMenuCell
+        let item = self.items[indexPath.row]
+        item.isSelected = !item.isSelected
+        cell.toggleSelection(item: item)
+        
+        self.action?(item)
     }
 }
 

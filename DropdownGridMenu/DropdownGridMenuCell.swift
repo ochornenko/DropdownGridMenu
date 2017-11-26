@@ -10,7 +10,7 @@ import UIKit
 
 class DropdownGridMenuCell: UICollectionViewCell {
     var textLabel: UILabel!
-    var button: UIButton!
+    var imageView: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +24,9 @@ class DropdownGridMenuCell: UICollectionViewCell {
         self.textLabel.backgroundColor = UIColor.clear
         self.contentView.addSubview(self.textLabel)
         
-        self.button = UIButton()
-        self.button.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.button)
+        self.imageView = UIImageView()
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.imageView)
         
         self.backgroundColor = UIColor.clear
         self.selectedBackgroundView = UIView()
@@ -38,33 +38,31 @@ class DropdownGridMenuCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var isSelected: Bool {
-        didSet {
-            if self.isSelected {
-                self.button.isSelected = true
-                let len = (self.textLabel.attributedText?.length)!
-                if len > 0 {
-                    let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
-                    attrText.addAttribute(NSAttributedStringKey.foregroundColor, value: tintColor(), range: NSMakeRange(0, len))
-                    self.textLabel.attributedText = attrText
-                }
-            } else {
-                self.button.isSelected = false
-                let len = (self.textLabel.attributedText?.length)!
-                if len > 0 {
-                    let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
-                    attrText.removeAttribute(NSAttributedStringKey.foregroundColor, range: NSMakeRange(0, len))
-                    self.textLabel.attributedText = attrText
-                }
+    func toggleSelection(item: DropdownGridMenuItem) {
+        if item.isSelected {
+            self.imageView.image = item.image.tint(color: UIColor(white: 0.5, alpha: 0.5))
+            let len = (self.textLabel.attributedText?.length)!
+            if len > 0 {
+                let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
+                attrText.addAttribute(NSAttributedStringKey.foregroundColor, value: tintColor(), range: NSMakeRange(0, len))
+                self.textLabel.attributedText = attrText
+            }
+        } else {
+            self.imageView.image = item.image
+            let len = (self.textLabel.attributedText?.length)!
+            if len > 0 {
+                let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
+                attrText.removeAttribute(NSAttributedStringKey.foregroundColor, range: NSMakeRange(0, len))
+                self.textLabel.attributedText = attrText
             }
         }
     }
     
     func configureCell() {
         let metrics = ["margin": 4]
-        let vfsV = "V:|-margin-[button]-margin-[text]-margin-|"
+        let vfsV = "V:|-margin-[imageView]-margin-[text]-margin-|"
         let vfsH = "H:|->=margin-[text]->=margin-|"
-        let views = ["text": self.textLabel, "button": self.button] as [String : Any]
+        let views = ["text": self.textLabel, "imageView": self.imageView] as [String : Any]
         
         // horizontal centering
         for (_, view) in views as [String : Any] {
@@ -73,7 +71,7 @@ class DropdownGridMenuCell: UICollectionViewCell {
             self.contentView.addConstraint(constraint)
         }
         
-        self.button.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.vertical)
+        self.imageView.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.vertical)
         
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: vfsV, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: vfsH, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
