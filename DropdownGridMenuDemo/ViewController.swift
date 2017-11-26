@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     
     @objc func presentPopover(sender: UIBarButtonItem) {
         let itemSize = CGSize(width: self.view.frame.size.width / 6, height: 70)
-        let contentSize = CGSize(width: self.view.frame.width / 1.5, height: self.view.frame.height / 2)
+        let contentSize = CGSize(width: self.view.frame.width / 1.3, height: self.view.frame.height / 2)
         DropdownGridMenuController.presentPopover(self, appear: .fromTop, sender: sender, items: items, itemSize: itemSize, contentSize: contentSize, action: { item in
             if item.isSelected {
                 print("item selected at index \(self.items.index(where: {$0 === item})!)")
