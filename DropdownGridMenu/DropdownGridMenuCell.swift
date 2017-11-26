@@ -50,6 +50,12 @@ class DropdownGridMenuCell: UICollectionViewCell {
                 }
             } else {
                 self.button.isSelected = false
+                let len = (self.textLabel.attributedText?.length)!
+                if len > 0 {
+                    let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
+                    attrText.removeAttribute(NSAttributedStringKey.foregroundColor, range: NSMakeRange(0, len))
+                    self.textLabel.attributedText = attrText
+                }
             }
         }
     }

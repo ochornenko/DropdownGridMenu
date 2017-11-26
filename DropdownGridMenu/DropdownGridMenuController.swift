@@ -42,13 +42,12 @@ class DropdownGridMenuController: UIViewController {
         self.view.backgroundColor = UIColor.clear
         
         self.backgroundView = UIView(frame: self.view.frame)
-        self.backgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundView.backgroundColor = UIColor(white: 1.0, alpha: 0.9)
         self.backgroundView.alpha = 0
         self.view.insertSubview(self.backgroundView, at: 0)
+        self.backgroundView.bindFrameToSuperviewBounds()
         
         self.collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewFlowLayout())
-        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.alwaysBounceVertical = true
@@ -59,6 +58,7 @@ class DropdownGridMenuController: UIViewController {
         self.collectionView.backgroundColor = UIColor.clear
         self.collectionView.isHidden = true
         self.view.addSubview(self.collectionView)
+        self.collectionView.bindFrameToSuperviewBounds()
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeLeft.direction = .left
@@ -67,21 +67,6 @@ class DropdownGridMenuController: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeRight.direction = .right
         self.collectionView.addGestureRecognizer(swipeRight)
-        
-        activateConstraints(true)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    func activateConstraints(_ active: Bool) {
-        self.backgroundView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = active
-        self.backgroundView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = active
-        
-        self.collectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = active
-        self.collectionView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = active
     }
     
     func transformItemAtIndex(_ index: Int, negative: Bool) -> CGAffineTransform {
@@ -272,21 +257,6 @@ extension DropdownGridMenuController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UIImage
-
-extension UIImage {
-    func tint(color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        let rect = CGRect(origin: .zero, size: size)
-        self.draw(in: rect)
-        color.set()
-        UIRectFillUsingBlendMode(rect, CGBlendMode.sourceAtop)
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }
-}
-
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension DropdownGridMenuController: UICollectionViewDelegateFlowLayout {
@@ -337,5 +307,35 @@ extension DropdownGridMenuController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         
         return UIModalPresentationStyle.none
+    }
+}
+
+// MARK: - UIView
+
+extension UIView {
+    func bindFrameToSuperviewBounds() {
+        guard let superview = self.superview else {
+            print("Error! `superview` was nil – call `addSubview(view: UIView)` before calling `bindFrameToSuperviewBounds()` to fix this.")
+            return
+        }
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        superview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[subview]-0-|", options: .directionLeadingToTrailing, metrics: nil, views: ["subview": self]))
+        superview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[subview]-0-|", options: .directionLeadingToTrailing, metrics: nil, views: ["subview": self]))
+    }
+}
+
+// MARK: - UIImage
+
+extension UIImage {
+    func tint(color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        let rect = CGRect(origin: .zero, size: size)
+        self.draw(in: rect)
+        color.set()
+        UIRectFillUsingBlendMode(rect, CGBlendMode.sourceAtop)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
     }
 }
