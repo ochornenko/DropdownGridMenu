@@ -12,12 +12,24 @@ class DropdownGridMenuController: UIViewController {
 
     private static let cell = "DropdownGridMenuCell"
     
+    /**
+     Defines direction from which menu appears
+     - fromTop: Appears from the Top
+     - fromLeft: Appears from the Left
+     - fromRight: Appears from the Right
+     */
     enum DropdownGridMenuAppear: Int {
         case fromTop
         case fromLeft
         case fromRight
     }
     
+    /**
+     Defines direction to which menu disappears
+     - toBottom: Disappears to the Bottom
+     - toLeft: Disappears to the Left
+     - toRight: Disappears to the Right
+     */
     enum DropdownGridMenuDismiss: Int {
         case toBottom
         case toLeft
@@ -172,6 +184,18 @@ class DropdownGridMenuController: UIViewController {
         })
     }
     
+    /**
+     Present view controller with navigation controller from view controller
+     - parameters:
+       - viewController: View controller from which menu view controller is presented
+       - appear: Defines direction from which menu appears
+       - leftBarButtonItem: Bar button item from which menu is presented
+       - rightBarButtonItem: Bar button item from which menu is presented
+       - items: Array of menu items
+       - itemSize: Size of menu item (width and height)
+       - action: The action handler, occurs when item is selected
+       - completion: The completion handler, will be invoked after menu dismissing
+     */
     static func presentFromViewController(_ viewController: UIViewController, appear: DropdownGridMenuAppear, leftBarButtonItem: UIBarButtonItem?, rightBarButtonItem: UIBarButtonItem?, items: [DropdownGridMenuItem], itemSize: CGSize, action: ((DropdownGridMenuItem) -> Swift.Void)? = nil, completion: (() -> Swift.Void)? = nil) {
         let menuController = DropdownGridMenuController()
         menuController.items = items
@@ -197,6 +221,18 @@ class DropdownGridMenuController: UIViewController {
         viewController.present(navigationController, animated: true)
     }
     
+    /**
+     Present popover from view controller
+     - parameters:
+       - viewController: View controller from which popover is presented
+       - appear: Defines direction from which menu appears
+       - sender: Bar button item from which popover is presented
+       - items: Array of menu items
+       - itemSize: Size of menu item (width and height)
+       - contentSize: Size of popover content view (width and height)
+       - action: The action handler, occurs when item is selected
+       - completion: The completion handler, will be invoked after popover menu dismissing
+     */
     static func presentPopover(_ viewController: UIViewController, appear: DropdownGridMenuAppear, sender: UIBarButtonItem, items: [DropdownGridMenuItem], itemSize: CGSize, contentSize: CGSize, action: ((DropdownGridMenuItem) -> Swift.Void)? = nil, completion: (() -> Swift.Void)? = nil) {
         let menuController = DropdownGridMenuController()
         menuController.items = items
