@@ -9,7 +9,7 @@
 import UIKit
 
 /// The dropdown grid menu item
-class DropdownGridMenuItem {
+public class DropdownGridMenuItem {
     /// The text of the item
     public var text: String
     /// The attributed text of the item
@@ -26,7 +26,7 @@ class DropdownGridMenuItem {
        - image: The image of the item
        - selected: Defines if item is selected
      */
-    init(text: String, image: UIImage, selected: Bool) {
+    public init(text: String, image: UIImage, selected: Bool) {
         
         self.text = text
         self.attributedText = NSAttributedString()
@@ -41,7 +41,7 @@ class DropdownGridMenuItem {
        - image: The image of the item
        - selected: Defines if item is selected
      */
-    init(attributedText: NSAttributedString, image: UIImage, selected: Bool) {
+    public init(attributedText: NSAttributedString, image: UIImage, selected: Bool) {
         
         self.text = String()
         self.attributedText = attributedText

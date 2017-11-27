@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     @objc func presentPopover(sender: UIBarButtonItem) {
         let itemSize = CGSize(width: self.view.frame.size.width / 6, height: 70)
         let contentSize = CGSize(width: self.view.frame.width / 1.3, height: self.view.frame.height / 2)
-        DropdownGridMenuController.presentPopover(self, appear: .fromTop, sender: sender, items: items, itemSize: itemSize, contentSize: contentSize, action: { item in
+        DropdownGridMenu.presentPopover(self, appear: .fromTop, sender: sender, items: items, itemSize: itemSize, contentSize: contentSize, action: { item in
             if item.isSelected {
                 print("item selected at index \(self.items.index(where: {$0 === item})!)")
             } else {
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     @objc func presentMenu(sender: UIBarButtonItem) {
         let itemSize = CGSize(width: self.view.frame.size.width / 6, height: 70)
-        DropdownGridMenuController.presentFromViewController(self, appear: .fromRight, leftBarButtonItem: nil, rightBarButtonItem: sender, items: items, itemSize: itemSize, action: { item in
+        DropdownGridMenu.present(self, appear: .fromRight, leftBarButtonItem: nil, rightBarButtonItem: sender, items: items, itemSize: itemSize, action: { item in
             if item.isSelected {
                 print("item selected at index \(self.items.index(where: {$0 === item})!)")
             } else {

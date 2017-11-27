@@ -45,7 +45,10 @@ Clone this repo, build and run the DropdownGridMenuDemo project in Xcode.
 
 ## Usage
 
-See DropdownGridMenuDemo the demo project.
+```
+import DropdownGridMenu
+```
+Also see DropdownGridMenuDemo the demo project.
 
 ## License
 

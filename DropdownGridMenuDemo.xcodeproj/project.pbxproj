@@ -18,6 +18,7 @@
 		7C67BB6C1FCA36B000D86DA8 /* DropdownGridMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB681FCA36B000D86DA8 /* DropdownGridMenuItem.swift */; };
 		7C67BB6D1FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB691FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift */; };
 		7C67BB6E1FCA36B000D86DA8 /* DropdownGridMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67BB6A1FCA36B000D86DA8 /* DropdownGridMenuController.swift */; };
+		7CBE34761FCBDBC10086E6E0 /* DropdownGridMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CBE34751FCBDBC00086E6E0 /* DropdownGridMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		7C67BB681FCA36B000D86DA8 /* DropdownGridMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuItem.swift; path = DropdownGridMenu/DropdownGridMenuItem.swift; sourceTree = SOURCE_ROOT; };
 		7C67BB691FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuTransitionController.swift; path = DropdownGridMenu/DropdownGridMenuTransitionController.swift; sourceTree = SOURCE_ROOT; };
 		7C67BB6A1FCA36B000D86DA8 /* DropdownGridMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenuController.swift; path = DropdownGridMenu/DropdownGridMenuController.swift; sourceTree = SOURCE_ROOT; };
+		7CBE34751FCBDBC00086E6E0 /* DropdownGridMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropdownGridMenu.swift; path = DropdownGridMenu/DropdownGridMenu.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		7C67BB661FCA364500D86DA8 /* DropdownGridMenu */ = {
 			isa = PBXGroup;
 			children = (
+				7CBE34751FCBDBC00086E6E0 /* DropdownGridMenu.swift */,
 				7C67BB671FCA36B000D86DA8 /* DropdownGridMenuCell.swift */,
 				7C67BB6A1FCA36B000D86DA8 /* DropdownGridMenuController.swift */,
 				7C67BB681FCA36B000D86DA8 /* DropdownGridMenuItem.swift */,
@@ -283,6 +286,7 @@
 				7C67BB6C1FCA36B000D86DA8 /* DropdownGridMenuItem.swift in Sources */,
 				7C67BB6B1FCA36B000D86DA8 /* DropdownGridMenuCell.swift in Sources */,
 				7C41FD1D1FC93CAC00DFEBE0 /* ViewController.swift in Sources */,
+				7CBE34761FCBDBC10086E6E0 /* DropdownGridMenu.swift in Sources */,
 				7C41FD1B1FC93CAC00DFEBE0 /* AppDelegate.swift in Sources */,
 				7C67BB6E1FCA36B000D86DA8 /* DropdownGridMenuController.swift in Sources */,
 				7C67BB6D1FCA36B000D86DA8 /* DropdownGridMenuTransitionController.swift in Sources */,

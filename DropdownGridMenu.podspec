@@ -16,4 +16,6 @@ Dropdown grid menu for iOS written in Swift. The menu can be presented from a na
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'DropdownGridMenu/**/*'
+  s.frameworks = 'UIKit'
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 end
