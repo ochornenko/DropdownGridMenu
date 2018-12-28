@@ -14,6 +14,7 @@ class DropdownGridMenuController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var backgroundView: UIView!
+    public var isPresented = false
     public var isPopover = false
     public var appear = DropdownGridMenu.DropdownGridMenuAppear.fromTop
     public var dismiss = DropdownGridMenu.DropdownGridMenuDismiss.toBottom
@@ -89,6 +90,7 @@ class DropdownGridMenuController: UIViewController {
     }
     
     func enterTheStage(_ completion: (() -> Swift.Void)? = nil) {
+        self.isPresented = true
         for index in 0..<self.items.count {
             let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0))
             cell?.transform = transformItemAtIndex(index, negative: false)
@@ -102,7 +104,7 @@ class DropdownGridMenuController: UIViewController {
         
         for index in 0..<self.items.count {
             let delay = 0.02 * CGFloat(index)
-            UIView.animate(withDuration: 0.8, delay: TimeInterval(delay), usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: UIViewAnimationOptions(rawValue: 0), animations: {
+            UIView.animate(withDuration: 0.8, delay: TimeInterval(delay), usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: UIView.AnimationOptions(rawValue: 0), animations: {
                 let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0))
                 cell?.transform = CGAffineTransform.identity
                 cell?.alpha = 1.0
@@ -115,8 +117,9 @@ class DropdownGridMenuController: UIViewController {
     }
     
     func leaveTheStage(_ completion: (() -> Swift.Void)? = nil) {
+        self.isPresented = false
         for index in 0..<self.items.count {
-            UIView.animate(withDuration: 0.3, delay: 0.02, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.02, options: UIView.AnimationOptions.curveEaseInOut, animations: {
                 let cell = self.collectionView.cellForItem(at: IndexPath(row: self.items.count - index - 1, section: 0))
                 cell?.transform = self.transformItemAtIndex(index, negative: true)
                 cell?.alpha = 0
@@ -133,9 +136,9 @@ class DropdownGridMenuController: UIViewController {
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         switch gesture.direction {
-        case UISwipeGestureRecognizerDirection.left:
+        case UISwipeGestureRecognizer.Direction.left:
             self.dismiss = .toLeft
-        case UISwipeGestureRecognizerDirection.right:
+        case UISwipeGestureRecognizer.Direction.right:
             self.dismiss = .toRight
         default:
             break
@@ -158,6 +161,28 @@ class DropdownGridMenuController: UIViewController {
         self.dismiss(animated: true, completion: {
             self.completion?()
         })
+    }
+    
+    @objc func dismiss(animated flag: Bool) {
+        if self.isPresented {
+            if self.isPopover {
+                if flag {
+                    self.leaveTheStage {
+                        self.dismiss(animated: flag, completion: {
+                            self.completion?()
+                        })
+                    }
+                } else {
+                    self.dismiss(animated: flag, completion: {
+                        self.completion?()
+                    })
+                }
+            } else {
+                self.dismiss(animated: flag, completion: {
+                    self.completion?()
+                })
+            }
+        }
     }
 }
 
@@ -212,7 +237,7 @@ extension DropdownGridMenuController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsetsMake(5, 0, 5, 0)
+        return UIEdgeInsets.init(top: 5, left: 0, bottom: 5, right: 0)
     }
 }
 

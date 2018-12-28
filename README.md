@@ -9,23 +9,23 @@ Dropdown grid menu for iOS written in Swift. The menu can be presented from a na
 
 ## Requirements
 
-- iOS 9.0+
-- Xcode 9.0+
-- Swift 4.0+
+- iOS 10.0+
+- Xcode 10.0+
+- Swift 4.2+
 
 ## Installation
 
 ### CocoaPods
 
-To integrate Alamofire into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate DropdownGridMenu into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'DropdownGridMenu', '~> 1.0.1'
+pod 'DropdownGridMenu', '~> 1.0.2'
 end
 ```
 

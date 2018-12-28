@@ -33,6 +33,14 @@ public class DropdownGridMenu {
         case toRight
     }
     
+    /// private grid menu controller
+    private var controller : DropdownGridMenuController
+    
+    /// private init to use only fabric methods
+    private init() {
+        self.controller = DropdownGridMenuController()
+    }
+    
     /**
      Present view controller with navigation controller from view controller
      - parameters:
@@ -45,29 +53,33 @@ public class DropdownGridMenu {
      - action: The action handler, occurs when item is selected
      - completion: The completion handler, will be invoked after menu dismissing
      */
-    public static func present(_ fromViewController: UIViewController, appear: DropdownGridMenuAppear, leftBarButtonItem: UIBarButtonItem?, rightBarButtonItem: UIBarButtonItem?, items: [DropdownGridMenuItem], itemSize: CGSize, action: ((DropdownGridMenuItem) -> Swift.Void)? = nil, completion: (() -> Swift.Void)? = nil) {
-        let menuController = DropdownGridMenuController()
-        menuController.items = items
-        menuController.itemSize = itemSize
-        menuController.appear = appear
-        menuController.action = action
-        menuController.completion = completion
+    @discardableResult
+    public static func present(_ fromViewController: UIViewController, appear: DropdownGridMenuAppear, leftBarButtonItem: UIBarButtonItem?, rightBarButtonItem: UIBarButtonItem?, items: [DropdownGridMenuItem], itemSize: CGSize, action: ((DropdownGridMenuItem) -> Swift.Void)? = nil, completion: (() -> Swift.Void)? = nil) -> DropdownGridMenu {
+        
+        let menu = DropdownGridMenu()
+        menu.controller.items = items
+        menu.controller.itemSize = itemSize
+        menu.controller.appear = appear
+        menu.controller.action = action
+        menu.controller.completion = completion
         
         if let menuImage = leftBarButtonItem?.image {
-            let leftBarButtonItem = UIBarButtonItem(image: menuImage, style: UIBarButtonItemStyle.plain, target: menuController.self, action: #selector(menuController.dismissMenu(sender:)))
-            menuController.navigationItem.leftBarButtonItem = leftBarButtonItem
+            let leftBarButtonItem = UIBarButtonItem(image: menuImage, style: UIBarButtonItem.Style.plain, target: menu.controller.self, action: #selector(menu.controller.dismissMenu(sender:)))
+            menu.controller.navigationItem.leftBarButtonItem = leftBarButtonItem
         }
         
         if let menuImage = rightBarButtonItem?.image {
-            let rightBarButtonItem = UIBarButtonItem(image: menuImage, style: UIBarButtonItemStyle.plain, target: menuController.self, action: #selector(menuController.dismissMenu(sender:)))
-            menuController.navigationItem.rightBarButtonItem = rightBarButtonItem
+            let rightBarButtonItem = UIBarButtonItem(image: menuImage, style: UIBarButtonItem.Style.plain, target: menu.controller.self, action: #selector(menu.controller.dismissMenu(sender:)))
+            menu.controller.navigationItem.rightBarButtonItem = rightBarButtonItem
         }
         
-        let navigationController = UINavigationController(rootViewController: menuController)
-        navigationController.transitioningDelegate = menuController.self
+        let navigationController = UINavigationController(rootViewController: menu.controller)
+        navigationController.transitioningDelegate = menu.controller.self
         navigationController.modalPresentationStyle = UIModalPresentationStyle.custom
         
         fromViewController.present(navigationController, animated: true)
+        
+        return menu
     }
     
     /**
@@ -82,21 +94,33 @@ public class DropdownGridMenu {
      - action: The action handler, occurs when item is selected
      - completion: The completion handler, will be invoked after popover menu dismissing
      */
-    public static func presentPopover(_ fromViewController: UIViewController, appear: DropdownGridMenuAppear, sender: UIBarButtonItem, items: [DropdownGridMenuItem], itemSize: CGSize, contentSize: CGSize, action: ((DropdownGridMenuItem) -> Swift.Void)? = nil, completion: (() -> Swift.Void)? = nil) {
-        let menuController = DropdownGridMenuController()
-        menuController.items = items
-        menuController.itemSize = itemSize
-        menuController.appear = appear
-        menuController.isPopover = true
-        menuController.action = action
-        menuController.completion = completion
+    @discardableResult
+    public static func presentPopover(_ fromViewController: UIViewController, appear: DropdownGridMenuAppear, sender: UIBarButtonItem, items: [DropdownGridMenuItem], itemSize: CGSize, contentSize: CGSize, action: ((DropdownGridMenuItem) -> Swift.Void)? = nil, completion: (() -> Swift.Void)? = nil) -> DropdownGridMenu {
         
-        menuController.modalPresentationStyle = UIModalPresentationStyle.popover
-        menuController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
-        menuController.popoverPresentationController?.delegate = menuController.self
-        menuController.popoverPresentationController?.barButtonItem = sender
-        menuController.preferredContentSize = contentSize
+        let menu = DropdownGridMenu()
+        menu.controller.items = items
+        menu.controller.itemSize = itemSize
+        menu.controller.appear = appear
+        menu.controller.isPopover = true
+        menu.controller.action = action
+        menu.controller.completion = completion
+        menu.controller.modalPresentationStyle = UIModalPresentationStyle.popover
+        menu.controller.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+        menu.controller.popoverPresentationController?.delegate = menu.controller.self
+        menu.controller.popoverPresentationController?.barButtonItem = sender
+        menu.controller.preferredContentSize = contentSize
         
-        fromViewController.present(menuController, animated: true)
+        fromViewController.present(menu.controller, animated: true)
+        
+        return menu
+    }
+    
+    /**
+     Dismiss view controller
+     - parameters:
+     - animated: Dismiss view with animation if true
+     **/
+    public func dismiss(animated flag: Bool = true) {
+        self.controller.dismiss(animated: flag)
     }
 }

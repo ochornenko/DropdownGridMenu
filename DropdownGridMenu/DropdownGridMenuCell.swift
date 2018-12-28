@@ -44,7 +44,7 @@ class DropdownGridMenuCell: UICollectionViewCell {
             let len = (self.textLabel.attributedText?.length)!
             if len > 0 {
                 let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
-                attrText.addAttribute(NSAttributedStringKey.foregroundColor, value: tintColor(), range: NSMakeRange(0, len))
+                attrText.addAttribute(NSAttributedString.Key.foregroundColor, value: tintColor(), range: NSMakeRange(0, len))
                 self.textLabel.attributedText = attrText
             }
         } else {
@@ -52,7 +52,7 @@ class DropdownGridMenuCell: UICollectionViewCell {
             let len = (self.textLabel.attributedText?.length)!
             if len > 0 {
                 let attrText = self.textLabel.attributedText?.mutableCopy() as! NSMutableAttributedString
-                attrText.removeAttribute(NSAttributedStringKey.foregroundColor, range: NSMakeRange(0, len))
+                attrText.removeAttribute(NSAttributedString.Key.foregroundColor, range: NSMakeRange(0, len))
                 self.textLabel.attributedText = attrText
             }
         }
@@ -71,10 +71,10 @@ class DropdownGridMenuCell: UICollectionViewCell {
             self.contentView.addConstraint(constraint)
         }
         
-        self.imageView.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: UILayoutConstraintAxis.vertical)
+        self.imageView.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: NSLayoutConstraint.Axis.vertical)
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: vfsV, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: vfsH, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: vfsV, options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: views))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: vfsH, options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: views))
     }
     
     func tintColor() -> UIColor {

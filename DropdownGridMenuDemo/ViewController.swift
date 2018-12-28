@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         DropdownGridMenuItem(text: "Tutor", image: UIImage(named: "tutoring")!, selected: false)
     ]
     
+    var menu: DropdownGridMenu!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,34 +32,44 @@ class ViewController: UIViewController {
         leftBarButtonItem.tintColor = UIColor.gray
         self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(presentMenu(sender:)))
+        let rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(presentMenu(sender:)))
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     @objc func presentPopover(sender: UIBarButtonItem) {
+        let timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(action), userInfo: nil, repeats: false)
+        
         let itemSize = CGSize(width: self.view.frame.size.width / 6, height: 70)
         let contentSize = CGSize(width: self.view.frame.width / 1.3, height: self.view.frame.height / 2)
-        DropdownGridMenu.presentPopover(self, appear: .fromTop, sender: sender, items: items, itemSize: itemSize, contentSize: contentSize, action: { item in
+        menu = DropdownGridMenu.presentPopover(self, appear: .fromTop, sender: sender, items: items, itemSize: itemSize, contentSize: contentSize, action: { item in
             if item.isSelected {
                 print("item selected at index \(self.items.index(where: {$0 === item})!)")
             } else {
                 print("item deselected at index \(self.items.index(where: {$0 === item})!)")
             }
         }, completion: {
+            timer.invalidate()
             print("completed")
         } )
     }
     
     @objc func presentMenu(sender: UIBarButtonItem) {
+        let timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(action), userInfo: nil, repeats: false)
+        
         let itemSize = CGSize(width: self.view.frame.size.width / 6, height: 70)
-        DropdownGridMenu.present(self, appear: .fromRight, leftBarButtonItem: nil, rightBarButtonItem: sender, items: items, itemSize: itemSize, action: { item in
+        menu = DropdownGridMenu.present(self, appear: .fromRight, leftBarButtonItem: nil, rightBarButtonItem: sender, items: items, itemSize: itemSize, action: { item in
             if item.isSelected {
                 print("item selected at index \(self.items.index(where: {$0 === item})!)")
             } else {
                 print("item deselected at index \(self.items.index(where: {$0 === item})!)")
             }
         }, completion: {
+            timer.invalidate()
             print("completed")
         } )
+    }
+    
+    @objc func action() {
+        menu?.dismiss()
     }
 }
