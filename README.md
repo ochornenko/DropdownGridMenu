@@ -34,6 +34,10 @@ Then, run the following command:
 ```bash
 $ pod install
 ```
+### Swift Package Manager
+
+- File > Swift Packages > Add Package Dependency
+- Add https://github.com/ochornenko/DropdownGridMenu.git
 
 ### Manually
 
